@@ -37,6 +37,19 @@ class Category
         return $categories_data;
     }
 
+    public static function getIds(int $category_id): string
+    {
+        $categories = self::getCategories();
+        $ids = '';
+        foreach ($categories as $category) {
+            if ($category['parent_id'] == $category_id) {
+                $ids .= $category['id'] . ',';
+                $ids .= self::getIds($category['id']);
+            }
+        }
+        return $ids;
+    }
+
     public static function getTree($data): array
     {
         $categories_tree = [];
