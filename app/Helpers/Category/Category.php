@@ -78,4 +78,19 @@ class Category
         echo view(self::$tpl, ['item' => $item, 'tab' => $tab, 'id' => $id]);
         return ob_get_clean();
     }
+
+    public static function getBreadCrumbs(int $category_id): array
+    {
+        $categories = self::getCategories();
+        $breadCrumbs = [];
+        foreach ($categories as $category) {
+            if(isset($categories[$category_id])) {
+                $breadCrumbs[$categories[$category_id]['slug']] = $categories[$category_id]['title'];
+                $category_id = $categories[$category_id]['parent_id'];
+            } else {
+                break;
+            }
+        }
+        return array_reverse($breadCrumbs);
+    }
 }

@@ -53,9 +53,12 @@ class CategoryComponent extends Component
             ->orderBy($this->sortList[$this->sort]['order_field'], $this->sortList[$this->sort]['order_direction'])
             ->paginate($this->limit);
 
+        $breadCrumbs = \App\Helpers\Category\Category::getBreadCrumbs($category->id);
+
         return view('livewire.product.category-component', [
             'products' => $products,
             'category' => $category,
+            'breadCrumbs' => $breadCrumbs,
         ]);
     }
 }
