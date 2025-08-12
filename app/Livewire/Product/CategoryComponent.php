@@ -5,6 +5,8 @@ namespace App\Livewire\Product;
 use App\Helpers\Traits\CartTrait;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -26,6 +28,8 @@ class CategoryComponent extends Component
         'price-asc' => ['title' => 'Price (low > high)', 'order_field' => 'price', 'order_direction' => 'asc'],
         'price-desc' => ['title' => 'Price (high > low)', 'order_field' => 'price', 'order_direction' => 'desc']
     ];
+    #[Url]
+    public array $selected_filters = [];
 
     public function mount($slug)
     {
@@ -48,8 +52,33 @@ class CategoryComponent extends Component
         $category = Category::query()->where('slug', '=', $this->slug)->firstOrFail();
         $ids = \App\Helpers\Category\Category::getIds($category->id) . $category->id;
 
+        $category_filters = DB::table('category_filters')
+            ->select('category_filters.filter_group_id', 'filter_groups.title', 'filters.id as filter_id', 'filters.title as filter_title')
+            ->join('filter_groups', 'category_filters.filter_group_id', '=', 'filter_groups.id')
+            ->join('filters', 'filters.filter_group_id', '=', 'filter_groups.id')
+            ->whereIn('category_filters.category_id', explode(',', $ids))
+            ->get();
+        $filter_groups = [];
+        foreach ($category_filters as $filter) {
+            $filter_groups[$filter->filter_group_id][] = $filter;
+        }
+        if($this->selected_filters) {
+            $cnt_filter_groups = DB::table('filters')
+                ->select(DB::raw('count(distinct filter_group_id)'))
+                ->whereIn('id', $this->selected_filters)
+                ->value('cnt');
+        } else {
+            $cnt_filter_groups = 1;
+        }
+
         $products = Product::query()
             ->whereIn('category_id', explode(',', $ids))
+            ->when($this->selected_filters, function (Builder $query) use ($cnt_filter_groups) {
+                $query->leftJoin(DB::raw('filter_products FORCE INDEX FOR JOIN (filter_id)'), 'filter_products.product_id', '=', 'products.id')
+                    ->whereIn('filter_products.filter_id', $this->selected_filters)
+                    ->groupBy('id')
+                    ->havingRaw("count(distinct filter_products.filter_group_id) >= $cnt_filter_groups");
+            })
             ->orderBy($this->sortList[$this->sort]['order_field'], $this->sortList[$this->sort]['order_direction'])
             ->paginate($this->limit);
 
@@ -59,6 +88,7 @@ class CategoryComponent extends Component
             'products' => $products,
             'category' => $category,
             'breadCrumbs' => $breadCrumbs,
+            'filter_groups' => $filter_groups,
         ]);
     }
 }
