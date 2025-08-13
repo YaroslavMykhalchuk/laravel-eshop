@@ -28,7 +28,7 @@
 
         <div class="row"  id="products">
             <div class="col-lg-3 col-md-4">
-                <div class="sidebar">
+                <div class="sidebar h-100">
 
                     <button class="btn btn-warning w-100 text-start collapse-filters-btn mb-3" type="button"
                             data-bs-toggle="collapse" data-bs-target="#collapseFilters" aria-expanded="false"
@@ -37,6 +37,31 @@
                     </button>
 
                     <div class="collapse collapse-filters" id="collapseFilters">
+
+                        @if($selected_filters)
+                            <button class="btn btn-outline-warning mb-3 w-100" wire:click="clearFilters">Clear filters</button>
+                            <div class="selected-filters mb-3">
+                                @foreach($filter_groups as $filter_group)
+                                    @foreach($filter_group as $filter)
+                                        @if(in_array($filter->filter_id, $selected_filters))
+                                            <p
+                                                wire:click="removeFilter({{ $filter->filter_id }})"
+                                                wire:key="{{ $filter->filter_id }}">
+                                                <i class="fa-solid fa-xmark text-danger "></i>
+                                                {{ $filter->filter_title }}
+                                            </p>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            </div>
+                        @endif
+                        <div>
+                            <h5 class="section-title"><span>Filter by Price</span></h5>
+                            <div class="filter-price">
+                                <input type="number" class="form-control" value="{{ $min_price }}" wire:model.live.debounce.500ms="min_price">
+                                <input type="number" class="form-control" value="{{ $max_price }}" wire:model.live.debounce.500ms="max_price">
+                            </div>
+                        </div>
                         @foreach($filter_groups as $k => $filter_group)
                             <div class="filter-block" wire:key="{{ $k }}">
                                 <h5 class="section-title"><span>Filter by {{ $filter_group[0]->title }}</span></h5>
