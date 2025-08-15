@@ -62,6 +62,7 @@
                                             <span class="visually-hidden">Loading...</span>
                                         </div>
                                     </button>
+                                    <a href="{{ route('login') }}" class="not-login nav-link" wire:navigate>Already registered?</a>
                                 </div>
 
                             </form>

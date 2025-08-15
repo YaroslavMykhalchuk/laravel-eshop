@@ -740,6 +740,20 @@ footer a:hover {
 
 /* ============================= Cart Page ============================ */
 
+/* ============================= Login Page ============================ */
+
+.not-register:hover, .not-login:hover {
+    color: var(--accent-color);
+}
+
+.not-register, .not-login {
+    display: inline;
+    width: auto;
+    margin-left: 10px;
+}
+
+/* ============================= Login Page ============================ */
+
 @media only screen and (min-width : 992px) {
     .header-bottom .navbar .dropdown-menu-end {
         margin-left: 0;

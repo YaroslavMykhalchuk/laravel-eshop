@@ -8,7 +8,7 @@
             <ul class="dropdown-menu">
                 @guest
                     <li>
-                        <a class="dropdown-item" href="#">Login</a>
+                        <a class="dropdown-item" href="{{ route('login') }}" wire:navigate>Login</a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="{{ route('register') }}" wire:navigate>Register</a>
