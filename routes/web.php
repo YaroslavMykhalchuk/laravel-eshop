@@ -15,3 +15,10 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', \App\Livewire\User\LoginComponent::class)->name('login');
 });
 
+Route::middleware('auth')->group(function () {
+   Route::get('/logout', function () {
+       auth()->logout();
+       return redirect(route('login'));
+   })->name('logout');
+});
+
