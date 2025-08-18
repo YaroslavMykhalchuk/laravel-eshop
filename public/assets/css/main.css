@@ -738,6 +738,14 @@ footer a:hover {
     transform: translate(-50%, -50%);
 }
 
+.input-group.cart-block {
+    flex-wrap: nowrap;
+}
+
+.input-group.cart-block > input {
+    width: 80px
+}
+
 /* ============================= Cart Page ============================ */
 
 /* ============================= Login Page ============================ */
