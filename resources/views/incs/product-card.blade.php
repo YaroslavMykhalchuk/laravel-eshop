@@ -8,13 +8,13 @@
         @endif
     </div>
     <div class="product-thumb">
-        <a href="{{ route('product', $product->slug) }}">
+        <a href="{{ route('product', $product->slug) }}" wire:navigate>
             <img src="{{ asset($product->getImage()) }}" alt="">
         </a>
     </div>
     <div class="product-details">
         <h4>
-            <a href="{{ route('product', $product->slug) }}">{{ $product->title }}</a>
+            <a href="{{ route('product', $product->slug) }}" wire:navigate>{{ $product->title }}</a>
         </h4>
         <div class="product-bottom-details d-flex justify-content-between">
             <div class="product-price">
