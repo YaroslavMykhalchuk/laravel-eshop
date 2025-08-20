@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
-use mysql_xdevapi\Exception;
 
 class CheckoutComponent extends Component
 {
