@@ -93,17 +93,8 @@
                     <div class="col-12">
                         <h1 class="section-title h3"><span>{{ $category->title }}</span></h1>
                     </div>
-{{--                    <div class="col-4 col-sm-2">--}}
-{{--                        <img src="assets/img/products/8.jpg" alt="" class="img-thumbnail">--}}
-{{--                    </div>--}}
-{{--                    <div class="col-8 col-sm-10">--}}
-{{--                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa voluptate porro--}}
-{{--                            suscipit sit earum quia aliquid, illum eos esse fuga nam sed molestiae non laborum--}}
-{{--                            exercitationem saepe, dolores incidunt quidem!</p>--}}
-{{--                    </div>--}}
                 </div>
 
-{{--                <hr>--}}
 
 
                 @if(count($products))
@@ -141,18 +132,6 @@
                     <div class="row">
                         <div class="col-12">
                             {{ $products->links(data :['scrollTo' => '#products']) }}
-{{--                            <nav aria-label="Page navigation example">--}}
-{{--                                <ul class="pagination">--}}
-{{--                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>--}}
-{{--                                    <li class="page-item"><a class="page-link" href="#">1</a></li>--}}
-{{--                                    <li class="page-item active" aria-current="page"><a class="page-link"--}}
-{{--                                                                                        href="#">2</a></li>--}}
-{{--                                    <li class="page-item"><a class="page-link" href="#">3</a></li>--}}
-{{--                                    <li class="page-item"><a class="page-link" href="#">4</a></li>--}}
-{{--                                    <li class="page-item"><a class="page-link" href="#">5</a></li>--}}
-{{--                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>--}}
-{{--                                </ul>--}}
-{{--                            </nav>--}}
                         </div>
                     </div>
 

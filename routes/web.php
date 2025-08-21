@@ -11,6 +11,7 @@ Route::get('/category/{slug}', \App\Livewire\Product\CategoryComponent::class)->
 Route::get('/product/{slug}', \App\Livewire\Product\ProductComponent::class)->name('product');
 Route::get('/cart', \App\Livewire\Cart\Cart::class)->name('cart');
 Route::get('/checkout', \App\Livewire\Cart\CheckoutComponent::class)->name('checkout');
+Route::get('/search', \App\Livewire\Search\SearchComponent::class)->name('search');
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', \App\Livewire\User\RegisterComponent::class)->name('register');
