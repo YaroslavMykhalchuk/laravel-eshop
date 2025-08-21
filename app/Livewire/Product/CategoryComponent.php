@@ -16,6 +16,7 @@ class CategoryComponent extends Component
     use WithPagination, CartTrait;
 
     public string $slug = '';
+    public string $categoryTitle = '';
     #[Url]
     public int $limit = 3;
     public array $limitList = [3, 6, 9, 12];
@@ -52,6 +53,12 @@ class CategoryComponent extends Component
         if(in_array($property[0], ['selected_filters', 'min_price', 'max_price'])) {
             $this->resetPage();
         }
+    }
+
+    public function updatedPage($page)
+    {
+        $page_title = $page > 1 ? " :: Page - {$page}" : "Page - 1";
+        $this->dispatch('page-updated', title: config('app.name') . " :: Category {$this->categoryTitle}$page_title");
     }
 
     public function changeSort()
@@ -125,6 +132,14 @@ class CategoryComponent extends Component
             ->orderBy($this->sortList[$this->sort]['order_field'], $this->sortList[$this->sort]['order_direction'])
             ->paginate($this->limit);
 
+        $page = request()-> query('page', 1);
+        if($page > $products->lastPage()) {
+            abort(404);
+        }
+
+        $this->categoryTitle = $category->title;
+        $title = "Category {$category->title}" . ($page ? " :: Page - {$page}" : "");
+
         $breadCrumbs = \App\Helpers\Category\Category::getBreadCrumbs($category->id);
 
         return view('livewire.product.category-component', [
@@ -132,6 +147,7 @@ class CategoryComponent extends Component
             'category' => $category,
             'breadCrumbs' => $breadCrumbs,
             'filter_groups' => $filter_groups,
+            'title' => $title,
         ]);
     }
 }

@@ -23,6 +23,8 @@ class HomeComponent extends Component
         return view('livewire.home-component', [
             'hits_products' => $hits_products,
             'new_products' => $new_products,
+            'title' => 'Home page',
+            'desc' => 'Description home page'
         ]);
     }
 }
