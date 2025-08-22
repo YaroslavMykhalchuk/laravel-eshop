@@ -23,7 +23,7 @@
                     </li>
                     @if(auth()->user()->is_admin)
                         <li>
-                            <a class="dropdown-item" href="#">Dashboard</a>
+                            <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                     @endif
                 @endauth
