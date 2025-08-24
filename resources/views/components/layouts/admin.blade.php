@@ -17,11 +17,15 @@
         rel="stylesheet">
 
     <link href="{{ asset('assets/admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/toastr/toastr.min.css') }}">
 
     <script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}" defer></script>
     <script src="{{ asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('assets/admin/vendor/jquery-easing/jquery.easing.min.js') }}" defer></script>
     <script src="{{ asset('assets/admin/js/sb-admin-2.min.js') }}" defer></script>
+    <script src="{{ asset('assets/libs/toastr/toastr.min.js') }}" defer></script>
+    <script src="{{ asset('assets/admin/js/main.js') }}" defer></script>
 
 </head>
 
@@ -113,6 +117,22 @@
             <div class="container-fluid">
 
                 <h1 class="h3 mb-3 text-gray-800">{{ $title ?? 'Admin page' }}</h1>
+
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @elseif(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
 
                 {{ $slot }}
 
