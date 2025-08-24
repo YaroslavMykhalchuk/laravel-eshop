@@ -51,6 +51,12 @@
                 <span>Dashboard</span>
             </a>
         </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ route('admin.categories.index') }}" wire:navigate>
+                <i class="fa-solid fa-bars-staggered"></i>
+                <span>Categories</span>
+            </a>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
