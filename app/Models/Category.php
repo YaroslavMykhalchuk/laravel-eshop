@@ -28,4 +28,9 @@ class Category extends Model
             ]
         ];
     }
+
+    public function filters()
+    {
+        return $this->belongsToMany(FilterGroup::class, 'category_filters', 'category_id', 'filter_group_id');
+    }
 }

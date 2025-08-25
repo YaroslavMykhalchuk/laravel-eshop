@@ -13,4 +13,9 @@ class FilterGroup extends Model
     ];
 
     public $timestamps = false;
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_filters', 'category_id', 'filter_group_id');
+    }
 }

@@ -31,6 +31,32 @@
                     </div>
 
                     <div class="mb-3">
+                        <div class="card">
+                            <div class="card-header">Filters</div>
+                            <div class="card-body">
+                                @foreach($filter_groups as $filter_group)
+                                    <div wire:key="{{ $filter_group->id }}" class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value="{{ $filter_group->id }}"
+                                            id="filter-{{ $filter_group->id }}"
+                                            wire:model="selectedCategoryFilters">
+                                        <label class="form-check-label" for="filter-{{ $filter_group->id }}">
+                                            {{ $filter_group->title }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                                @error('selectedCategoryFilters.*')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
                         <button type="submit" class="btn btn-success">
                             Update
                             <div wire:loading wire:target="save" class="spinner-grow spinner-grow-sm" role="status" style="margin-bottom: 3px;">
