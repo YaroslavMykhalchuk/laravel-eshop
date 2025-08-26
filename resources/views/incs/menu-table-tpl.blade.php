@@ -8,7 +8,7 @@
         <a class="btn btn-warning btn-circle" href="{{ route('admin.categories.edit', $item['id']) }}" wire:navigate>
             <i class="fa-solid fa-pen"></i>
         </a>
-        <button class="btn btn-danger btn-circle" wire:click="deleteCategory({{ $item['id'] }})" wire:confirm="Are you sure?">
+        <button class="btn btn-danger btn-circle" wire:click="deleteCategory({{ $item['id'] }})" wire:confirm="Are you sure?" wire:loading.attr="disabled">
             <i class="fa-solid fa-trash"></i>
         </button>
     </td>
