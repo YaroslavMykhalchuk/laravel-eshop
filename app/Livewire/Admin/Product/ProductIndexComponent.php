@@ -20,29 +20,30 @@ class ProductIndexComponent extends Component
     public function deleteProducts(Product $product)
     {
         try {
+            $pathImage = $product->image;
+            $pathGallery = $product->gallery;
+
             DB::beginTransaction();
 
             DB::table('filter_products')
                 ->where('product_id', $product->id)
                 ->delete();
-            if($product->image){
-                Storage::disk('public_uploads_delete')->delete($product->image);
-            }
-            if($gallery = $product->gallery){
-                Storage::disk('public_uploads_delete')->delete($gallery);
-            }
             $product->delete();
 
             DB::commit();
 
-            session()->flash('success', 'Product has been deleted.');
+            if($pathImage){
+                Storage::disk('public_uploads_delete')->delete($pathImage);
+            }
+            if($pathGallery){
+                Storage::disk('public_uploads_delete')->delete($pathGallery);
+            }
+            $this->js("toastr.success('Product has been deleted.')");
             return;
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
-            $this->js("toastr.error('Error deleting product')");
-
+            $this->js("toastr.error('Error deleting product.')");
         }
     }
 
