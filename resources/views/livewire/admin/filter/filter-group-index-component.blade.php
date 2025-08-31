@@ -17,8 +17,8 @@
                         <thead>
                         <tr>
                             <th class="col-1">ID</th>
-                            <th class="col-4">Title</th>
-                            <th class="col-3">Actions</th>
+                            <th class="col-10">Title</th>
+                            <th class="col-1">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
