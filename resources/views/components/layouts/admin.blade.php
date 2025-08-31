@@ -52,24 +52,50 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('dashboard') }}" wire:navigate>
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span>
             </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item {{ Route::currentRouteName() == 'admin.categories.index' ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.categories.index') }}" wire:navigate>
                 <i class="fa-solid fa-bars-staggered"></i>
                 <span>Categories</span>
             </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item {{ Route::currentRouteName() == 'admin.products.index' ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.products.index') }}" wire:navigate>
                 <i class="fa-solid fa-list-ul"></i>
                 <span>Products</span>
             </a>
         </li>
+        <hr class="sidebar-divider">
+        <li class="nav-item {{ Route::currentRouteName() == 'admin.filter-groups.index' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.filter-groups.index') }}" wire:navigate>
+                <i class="fa-solid fa-arrow-up-short-wide"></i>
+                <span>Filter groups</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Route::currentRouteName() == 'admin.filter-groups.create' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.filter-groups.create') }}" wire:navigate>
+                <i class="fa-solid fa-arrow-up-short-wide"></i>
+                <span>Add filter groups</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Route::currentRouteName() == 'admin.filters.index' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.filters.index') }}" wire:navigate>
+                <i class="fa-solid fa-filter"></i>
+                <span>Filter list</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Route::currentRouteName() == 'admin.filters.create' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.filters.create') }}" wire:navigate>
+                <i class="fa-solid fa-filter"></i>
+                <span>Add filter</span>
+            </a>
+        </li>
+
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
