@@ -31,7 +31,7 @@
                                 <td>{{ $order->id }}</td>
                                 <td>{{ $order->email }}</td>
                                 <td>{{ $order->status ? 'Completed' : 'New' }}</td>
-                                <td>{{ $order->total }}</td>
+                                <td>${{ $order->total }}</td>
                                 <td>{{ $order->created_at }}</td>
                                 <td>{{ $order->updated_at }}</td>
                                 <td>
