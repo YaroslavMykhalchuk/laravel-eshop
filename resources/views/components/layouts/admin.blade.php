@@ -95,7 +95,14 @@
                 <span>Add filter</span>
             </a>
         </li>
-
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item {{ Route::currentRouteName() == 'admin.orders.index' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.orders.index') }}" wire:navigate>
+                <i class="fa-solid fa-box-open"></i>
+                <span>Orders</span>
+            </a>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
