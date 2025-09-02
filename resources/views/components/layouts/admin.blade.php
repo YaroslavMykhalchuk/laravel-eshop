@@ -38,7 +38,11 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+        x-data="{ open: localStorage.getItem('sidebar') !== 'closed' }"
+        x-init="$watch('open', value => localStorage.setItem('sidebar', value ? 'open' : 'closed'))"
+        :class="{ 'toggled': !open }">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}" target="_blank">
@@ -71,6 +75,7 @@
             </a>
         </li>
         <hr class="sidebar-divider">
+        <div class="sidebar-heading">Filters</div>
         <li class="nav-item {{ Route::currentRouteName() == 'admin.filter-groups.index' ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.filter-groups.index') }}" wire:navigate>
                 <i class="fa-solid fa-arrow-up-short-wide"></i>
@@ -103,10 +108,18 @@
                 <span>Orders</span>
             </a>
         </li>
+        <li class="nav-item {{ Route::currentRouteName() == 'admin.users.index' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.users.index') }}" wire:navigate>
+                <i class="fa-solid fa-users"></i>
+                <span>Users</span>
+            </a>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            <button class="rounded-circle border-0" id="sidebarToggle"
+                    @click="open = !open">
+            </button>
         </div>
 
     </ul>
@@ -139,7 +152,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('admin.users.edit', auth()->id()) }}" wire:navigate>
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -229,3 +242,39 @@
 </body>
 
 </html>
+@push('scripts')
+    <script>
+        function bindSidebarToggle() {
+            const btns = document.querySelectorAll("#sidebarToggle, #sidebarToggleTop");
+
+            btns.forEach(btn => {
+                if (!btn.dataset.bound) {
+                    btn.addEventListener("click", function (e) {
+                        e.preventDefault();
+
+                        document.body.classList.toggle("sidebar-toggled");
+                        document.querySelector(".sidebar").classList.toggle("toggled");
+
+                        if (document.querySelector(".sidebar").classList.contains("toggled")) {
+                            document.querySelectorAll(".sidebar .collapse").forEach(c => {
+                                $(c).collapse('hide');
+                            });
+                        }
+                    });
+                    btn.dataset.bound = "true";
+                }
+            });
+        }
+
+        // Працює при першому завантаженні
+        window.addEventListener("load", bindSidebarToggle);
+
+        // Працює після будь-якої навігації Livewire
+        document.addEventListener("livewire:navigated", bindSidebarToggle);
+
+        // Додатково — після будь-якого оновлення DOM Livewire-компонента
+        Livewire.hook('message.processed', (message, component) => {
+            bindSidebarToggle();
+        });
+    </script>
+@endpush
